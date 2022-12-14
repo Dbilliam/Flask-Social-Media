@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ message }} </strong></h2>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+{% if id == current_user.id %}
+
+
+
+
+
+<div class="container">
+    <br />
+    <br />
+    <h2 align="center">Add Interests On Flask Social Media</h2>
+    <div id="resultbox"></div>
+    <div class="form-group">
+        <form name="add_skills" id="add_skills" >
+            <div id="InputsWrapper">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <input type="text" name="interests" placeholder="Enter your skill"
+                            class="form-control name_list" />
+                    </div>
+                    <div class="col-xs-6"><button type="button" name="add" id="AddMoreFileBox"
+                            class="btn btn-success">Add More</button></div>
+                </div>
+            </div>
+            <br />
+            <input type="button" name="submit" id="submit" class="btn btn-info" value="Submit" />
+        </form>
+    </div>
+</div>
+
+
+{% else %}
+
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <h2>Sorry! You Can't Edit This User... </h2>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <h2>Access Denied</h2>
+    <p>Sorry, you cannot access this user profile..</p>
+</div>
+
+{% endif %}
+
+
+
+<script>
+    $(document).ready(function () {
+
+        var MaxInputs = 8; //maximum input boxes allowed
+        var InputsWrapper = $("#InputsWrapper"); //Input boxes wrapper ID
+        var AddButton = $("#AddMoreFileBox"); //Add button ID
+
+        var x = InputsWrapper.length; //initlal text box count
+        var FieldCount = 1; //to keep track of text box added
+
+        $(AddButton).click(function (e)  //on add input button click
+        {
+            if (x <= MaxInputs) //max input box allowed
+            {
+                FieldCount++; //text box added increment
+                //add input box
+                $(InputsWrapper).append('<div class="row"><p class="col-xs-6"><input type="text" placeholder="Enter your skill" class="form-control skill_list" name="interests" id="field_' + FieldCount + '" value="Enter your skill ' + FieldCount + '"/>{{name_to_update.interests}}</p><a href="#" class="btn btn-danger removeclass">×</a></div>');
+                x++; //text box increment
+            }
+            return false;
+        });
+
+        $("body").on("click", ".removeclass", function (e) { //user click on remove text
+            if (x > 1) {
+                $(this).parent('div').remove(); //remove text box
+                x--; //decrement textbox
+            }
+            return false;
+        })
+        $('#submit').click(function () {
+            $.ajax({
+                url: "/userinterests/{{name_to_update.id}}",
+                method: "POST",
+                data: $('#add_skills').serialize(),
+                success: function (response) {
+                    console.log(response)
+                    $('#resultbox').html(data);
+                    $('#add_skills')[0].reset();
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

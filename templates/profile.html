@@ -1,0 +1,302 @@
+{% extends 'base.html'%}
+{% block content %}
+<section>
+    <div class="feature-photo">
+        <!-- <figure></figure>
+            {% if current_user.profile_pic %}
+            <img src="{{ url_for('static',filename='images/' + current_user.profile_pic )}}" alt="">
+            {% else %}
+            <img src="{{ url_for('static',filename='images/timeline-1.jpg')}}" alt="">
+            {% endif %}
+          </div>
+        </figure> -->
+        <figure><img src="/static/images/timeline-1.jpg" alt=""></figure>
+        <div class="add-btn">
+            <span>1205 followers</span>
+            <a href="#" title="" data-ripple="">Follow</a>
+        </div>
+        <form class="edit-phto">
+            <i class="fa fa-camera-retro"></i>
+            <label class="fileContainer">
+                Edit Cover Photo
+                <input type="file" />
+            </label>
+        </form>
+        <div class="container-fluid">
+            <div class="row merged">
+                <div class="col-lg-2 col-sm-3">
+                    <div class="user-avatar">
+                        <figure>
+                            {% if current_user.profile_picture %}
+                            <img src="{{ url_for('static',filename='images/' + current_user.profile_picture )}}">
+                            {% else %}
+                            <img src="{{ url_for('static',filename='images/pic-1.png')}}">
+                            {% endif %}
+                            <!-- <img src="/static/images/profile_me.jpg" alt=""> -->
+                            <form class="edit-phto">
+                                <i class="fa fa-camera-retro"></i>
+                                <label class="fileContainer">
+                                    Edit Display Photo
+                                    <input type="file" />
+                                </label>
+                            </form>
+                        </figure>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-sm-9">
+                    <div class="timeline-info">
+                        <ul>
+                            {% if current_user.name %}
+                            <li class="admin-name">
+                                <h5>{{ current_user.name}}</h5>
+                                {% else %}
+                                <li class="admin-name">
+                                <h5>Janice Griffith</h5>
+                                {% endif %}                         
+                            </li>
+                            <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+                            <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+                            <li><a href="#" class="nav-link px-2 link-dark">Doc</a></li>
+                            <li><a href="#" class="nav-link px-2 link-dark">Jobs</a></li>
+                            <li><a href="#" class="nav-link px-2 link-dark">Developer</a></li>
+                            <li><a href="#" class="nav-link px-2 link-dark">Security</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- top area -->
+
+<section>
+    <div >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row" id="page-contents">
+                        <div class="col-lg-3">
+
+                            <aside class="sidebar static">
+                                <div class="widget">
+                                    <!-- <h4 class="widget-title">Edit info</h4> -->
+                                    <ul class="naves">
+                                        <li>
+                                            <i class="fa-solid fa-circle-info"></i>
+                                            <a title="" href="{{url_for('update', id=current_user.id)}}">Basic info</a>
+                                         
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-school"></i>
+                                            <a title="" href="edit-work-eductation.html">Education &amp; Work</a>
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-heart"></i>
+                                            <a title="" href="edit-interest.html">My interests</a>
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-gear"></i>
+                                            <a title="" href="edit-account-setting.html">account setting</a>
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-lock"></i>
+                                            <a title="" href="edit-password.html">change password</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="widget">
+                                    <h4 class="widget-title">Socials</h4>
+                                    <ul class="socials">
+                                        <li class="facebook">
+                                            <a title="" href="#"><i class="fa-brands fa-facebook"></i>
+                                                <span>facebook</span>
+                                                <ins>45 likes</ins></a>
+                                        </li>
+                                        <li class="twitter">
+                                            <a title="" href="#"><i class="fa-brands fa-twitter"></i>
+                                                <span>twitter</span><ins>25 likes</ins></a>
+                                        </li>
+                                        <li class="twitter">
+                                            <a title="" href="#"><i
+                                                    class="fa-brands fa-instagram"></i><span>google</span><ins>35
+                                                    likes</ins></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </aside>
+                        </div><!-- sidebar -->
+                        <div class="col-lg-6">
+                            <div>
+                                <div class="about">
+                                    <div class="personal">
+                                        {% if current_user.about_info %}
+                                        
+                                        <p>{{ current_user.about_info}}</p>
+
+                                        {% else %}
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                            consequat.
+                                                <button class="btn btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        </p>
+                                        {% endif %}
+                                        
+                                       
+                                    </div>
+                                    <div class="d-flex flex-row mt-2">
+                                        <ul class="nav nav-tabs nav-tabs--vertical nav-tabs--left">
+                                            <li class="nav-item active">
+                                                <a href="#basic" class="nav-link" data-toggle="tab" aria-expanded="true">Basic
+                                                    info</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#location" class="nav-link" data-toggle="tab">location</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#education" class="nav-link" data-toggle="tab">education</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#work" class="nav-link" data-toggle="tab">work</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#interest" class="nav-link" data-toggle="tab">interests</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="#lang" class="nav-link" data-toggle="tab">languages</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade active in" id="basic">
+                                                <ul class="basics">
+
+                                                    <li><i class="ti-user"></i>{{ current_user.name }}</li>
+                                                    <li><i class="ti-map-alt"></i>{{ current_user.location }}</li>
+                                                    <li><i class="ti-mobile"></i>{{ current_user.phone }}</li>
+                                                    <li><i class="ti-email"></i><a
+                                                            href="https://wpkixx.com/cdn-cgi/l/email-protection"
+                                                            class="__cf_email__"
+                                                            data-cfemail="3c4553494e515d55507c59515d5550125f5351">[email&#160;{{ current_user.email }}]</a>
+                                                    </li>
+                                                    <li><i class="ti-world"></i>www.yoursite.com</li>
+                                                    <!-- <li><i class="ti-user"></i>sarah grey</li>
+                                                    <li><i class="ti-map-alt"></i>live in Dubai</li>
+                                                    <li><i class="ti-mobile"></i>+1-234-345675</li>
+                                                    <li><i class="ti-email"></i><a
+                                                            href="https://wpkixx.com/cdn-cgi/l/email-protection"
+                                                            class="__cf_email__"
+                                                            data-cfemail="3c4553494e515d55507c59515d5550125f5351">[email&#160;protected]</a>
+                                                    </li>
+                                                    <li><i class="ti-world"></i>www.yoursite.com</li> -->
+                                                </ul>
+                                            </div>
+                                            <div class="tab-pane fade" id="location" role="tabpanel">
+                                                <div class="location-map">
+                                                    <div id="map-canvas"></div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="work" role="tabpanel">
+                                                <div>
+
+                                                    <a href="#" title="">Envato</a>
+                                                    <p>work as autohr in envato themeforest from 2013</p>
+                                                    <a href="#" title="">Amzon</a>
+                                                    <p>work as autohr in envato themeforest from 2013</p>
+                                                    <!-- <ul class="education">
+                                                        <li><i class="fa-brands fa-facebook"></i> BSCS from Oxford
+                                                            University</li>
+                                                        <li><i class="fa-brands fa-facebook"></i> MSCS from Harvard
+                                                            Unversity</li>
+                                                    </ul> -->
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="education" role="tabpanel">
+                                                <div>
+                                                    <ul class="education">
+                                                        <li><i class="fa-brands fa-facebook"></i> BSCS from Oxford
+                                                            University</li>
+                                                        <li><i class="fa-brands fa-facebook"></i> MSCS from Harvard
+                                                            Unversity</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="interest" role="tabpanel">
+                                                    <ul class="basics"> 
+                                                        {% for row in our_users %}
+                                                        <li>{{row.interests}}</li>
+                                                         {% endfor %}
+                                                         <li>{{current_user.interests}}</li>
+                                                         <li>{{current_user.interests}}</li>
+                                                    
+                                                
+                                                </ul>
+                                            </div>
+                                            <div class="tab-pane fade" id="lang" role="tabpanel">
+                                                <ul class="basics">
+                                                    <li>english</li>
+                                                    <li>french</li>
+                                                    <li>spanish</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- centerl meta -->
+                        <div class="col-lg-3">
+                            <aside class="sidebar static">
+
+                                <div class="widget stick-widget">
+                                    <h4 class="widget-title">Who's follownig</h4>
+                                    <ul class="followers">
+                                        <li>
+                                            <figure><img src="../static/images/friend-avatar2.jpg" alt=""></figure>
+                                            <div class="friend-meta">
+                                                <h4><a href="time-line.html" title="">Kelly Bill</a></h4>
+                                                <a href="#" title="" class="underline">Follow</a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <figure><img src="/static/images/friend-avatar4.jpg" alt=""></figure>
+                                            <div class="friend-meta">
+                                                <h4><a href="time-line.html" title="">Issabel</a></h4>
+                                                <a href="#" title="" class="underline">Follow</a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <figure><img src="/static/images/friend-avatar6.jpg" alt=""></figure>
+                                            <div class="friend-meta">
+                                                <h4><a href="time-line.html" title="">Andrew</a></h4>
+                                                <a href="#" title="" class="underline">Follow</a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <figure><img src="/static/images/friend-avatar8.jpg" alt=""></figure>
+                                            <div class="friend-meta">
+                                                <h4><a href="time-line.html" title="">Sophia</a></h4>
+                                                <a href="#" title="" class="underline">Follow</a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <figure><img src="/static/images/friend-avatar3.jpg" alt=""></figure>
+                                            <div class="friend-meta">
+                                                <h4><a href="time-line.html" title="">Allen</a></h4>
+                                                <a href="#" title="" class="underline">Follow</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div><!-- who's following -->
+                            </aside>
+                        </div><!-- sidebar -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}
+
+

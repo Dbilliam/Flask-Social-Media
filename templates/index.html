@@ -1,0 +1,229 @@
+{% extends 'base.html'%}
+{% block content %}
+<div class="text-center">
+    <div class="row">
+        <div class="col-3">
+            <ol class="list-group list-group-numbered">
+                <h4 class="fw-bold">Today Trending Topic</h4>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">#viralvieo</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">#1</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">#worldpopulations</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">#2</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">#world_war</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">#3</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">#viralvieo</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">#4</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">#worldpopulations</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">#5</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">#world_war</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">#6</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">#viralvieo</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">#7</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">#worldpopulations</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">#8</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">#viralvieo</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">#9</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">#viralvieo</div>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">#10</span>
+                </li>
+            </ol>
+        </div>
+        <div class="col-6">
+            {% for message in get_flashed_messages() %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{message}} </strong></h2>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            <br />
+            <div class="shadow-lg p-3 mb-5 bg-body rounded">
+                <form method="post">
+                    {{ form.hidden_tag() }}
+                    {{ form.content.label (class="form-label")}}
+                    {{ form.content(class="form-control", rows="5", placeholder="Say Something to the World")}}
+                    <br />
+                    {{ form.submit(class="btn btn-primary", Value="POST NOW")}}
+                </form>
+            </div>
+            <div id="content" class="content content-full-width">
+                <div class="profile-content">
+                    <div class="tab-content p-0">
+                        <div id="profile-post">
+                            {% for post in posts %}
+                            <div class="timeline-body">
+                                <div class="timeline-header">
+                                    <span class="userimage"><img
+                                            src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""></span>
+                                            <span class="username"><a href="javascript:;">TilliaMax</a>
+                                        <small></small></span>
+                                    <span class="pull-right text-muted">18 Views</span>
+                                </div>
+                                <div class="timeline-content">
+                                    <p>
+                                        {{post.content|safe|truncate(100, true)}}
+                                    </p>
+                                </div>
+                                <div class="timeline-likes">
+                                    <div class="stats-right">
+                                        <span class="stats-text">259 Shares</span>
+                                        {%if post.comments %}
+                                        <span class="stats-text">{{post.comments|length}} Comments</span>
+                                        {%else%}
+                                        <span class="stats-text">No Comments</span>
+                                        {%endif%}
+                                    </div>
+                                </div>
+                                <div class="timeline-footer">
+                                    {% set postid = post.id %}
+                                    {% if user.id in post.likes | map(attribute='author')|list %}
+                                    <i style="float: left; text-decoration: none; margin-top: 3px; margin-bottom: -1px;"
+                                        id="like-button-{{post.id}}" class="fa fa-thumbs-up fa-fw fa-lg m-r-3"
+                                        onclick="like({{postid}})">&nbsp;&nbsp; </i><span id="like-count-{{postid}}"
+                                        class="like-count"> {{post.likes|length}}</span>
+                                    {%else%}
+                                    <i style="float: left; text-decoration: none; margin-top: 3px; margin-bottom: -1px;"
+                                        class="fa fa-thumbs-up fa-fw fa-lg m-r-3" id="like-button-{{post.id}}"
+                                        onclick="like({{postid}})">&nbsp;&nbsp; </i><span id="like-count-{{postid}}"
+                                        class="like-count">{{post.likes|length}}</span>
+                                    {%endif%}
+                                    
+                                    {%if post.comments %}
+                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i
+                                            class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment
+                                        {{post.comments|length}}</a>
+                                    {%else%}
+                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i
+                                            class="fa fa-comments fa-fw fa-lg m-r-3"></i> Comment
+                                    </a>
+                                    {%endif%}
+                                    <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i
+                                            class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>
+                                </div>
+                                <div class="timeline-comment-box">
+                                    <div class="user"><img src="https://bootdey.com/img/Content/avatar/avatar3.png">
+                                    </div>
+                                    <div class="input">
+                                        <form onsubmit="return addComment({{post.id}})" id="comment-form-{{post.id}}"
+                                            method="POST" action="/add-comment/{{post.id}}" autocomplete="off">
+                                            <label for="Comment"></label>
+                                            <div class="input-group">
+                                                <input name="comment" type="text" id="comment-{{post.id}}"
+                                                    class="comment form-control rounded-corner"
+                                                    placeholder="Write a comment..." />
+                                                <span class="input-group-btn p-l-10">
+                                                    <button type="submit" id="comment-button-{{post.id}}"
+                                                        class="btn btn-primary f-s-12 rounded-corner">Comment</button>
+                                                </span>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div id="options-{{post.id}}">
+                                        {%if post.comments %}
+                                        <div class="btn-group dropup comments-section" id="comment-section-{{post.id}}">
+                                            <button type="button" class="btn btn-secondary dropdown-toggle"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                {% if post.comments|length > 1%} View {{post.comments|length}}
+                                                comments {%else%} View {{post.comments|length}} comment {%endif%}
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-dark">
+                                                {%for comment in post.comments%}
+                                                <li class="comment-text" id="comment-text-{{comment.id}}">
+                                                    {{comment.user.username | title}}: &nbsp;{{comment.text}}
+                                                    &nbsp;&nbsp;&nbsp;
+                                                    {%if user.id == comment.author or user.id == post.author%}
+                                                    <button type="button" onclick="deleteComment({{comment.id}})"
+                                                        id="deleteCom-{{comment.id}}"
+                                                        class="btn btn-danger btn-sm delete-comment">&#x2715;</button>
+                                                    {%endif%}
+                                                    &nbsp;&nbsp;&nbsp;
+                                                </li>
+                                                <br>
+                                                {%endfor%}
+                                            </ul>
+                                        </div>
+                                        {%endif%}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <div class="timeline-body">
+                                Loading...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-3">
+            <ol class="list-group list-group-numbered">
+                <h4 class="fw-bold">Recommended by Anmous</h4>
+                {% for row in our_users %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">{{row.username}}</div>
+                    </div>
+                    <figure>
+                        <img src="../static/images/pic-1.png" alt="">
+                        <span class="status f-online"></span>
+                    </figure>
+                    <br>
+                    <span class="badge bg-primary rounded-pill">Follow</span>
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+
+
+    </div>
+
+
+
+
+
+</div>
+
+
+{% endblock %}
